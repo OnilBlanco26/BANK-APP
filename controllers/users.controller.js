@@ -7,7 +7,7 @@ const register = async (req, res) => {
     const accountNumber = (Math.round(Math.random() * 100000) + 100000)
     const amount = 1000
 
-    const user = User.create({
+    const user = await User.create({
         name,
         accountNumber,
         password,
