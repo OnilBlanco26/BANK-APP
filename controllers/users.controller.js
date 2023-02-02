@@ -1,4 +1,6 @@
+const Transfers = require("../models/transfers.model");
 const User = require("../models/users.model");
+
 
 
 const register = async (req, res) => {
@@ -47,7 +49,39 @@ const login = async (req, res) => {
 }
 
 const getHistory = async (req, res) => {
+    const {id} = req.params
+    const getUser = await User.findOne({
+        where: {
+            status: true,
+            id
+        }
+    })
 
+    if(!getUser) {
+        return res.status(404).json({
+            status: 'error',
+            message: 'User not found'
+        })
+    }
+    
+    const transfers = await Transfers.findAll({
+        where: {
+            senderUserId: id
+        }
+    })
+
+    if(transfers.length === 0) {
+        return res.status(404).json({
+            status: 'error',
+            message: 'This user has not made any transactions'
+        })
+    }
+
+    res.status(200).json({
+        status: 'success',
+        message: 'Transfers has found succesfully',
+        transfers
+    })
 }
 
 
