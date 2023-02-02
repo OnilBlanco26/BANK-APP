@@ -16,6 +16,13 @@ class Server {
             users: '/api/v1/users',
             transfers: '/ap1/v1/transfers'
         }
+
+        //LLAMAR EL METODO DE LA CONEXION A LA BASE DE DATOS
+        this.database()
+        //INVOCAR EL METODO MIDDLEWARES
+        this.middlewares()
+        //INVOCAMOS EL METODO ROUTES
+        this.routes()
     }
 
     middlewares(){
