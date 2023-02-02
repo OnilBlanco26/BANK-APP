@@ -1,6 +1,8 @@
 const express = require('express')
 const cors = require('cors')
 const morgan = require('morgan')
+const { usersRouter } = require('../routes/user.routes')
+const { db } = require('../database/db')
 
 
 // 1. Creamos una clase
@@ -25,8 +27,21 @@ class Server {
         this.app.use(express.json())
     }
 
+    // METODO QUE CONECTA CON LAS RUTAS DE NUESTRA APP
     routes() {
+        // UTLIZAMOS LA RUTA DE USUARIOS
+        this.app.use(this.paths.users, usersRouter)
+    }
 
+    //CREAMOS EL METODO DE CONEXION PARA NUESTRA BASE DE DATOS
+    database(){
+        db.authenticate()
+        .then(() => console.log('Database authenticate'))
+        .catch(err => console.log(err))
+
+        db.sync()
+        .then(() => console.log('Database Synced'))
+        .catch(err => console.log(err)) 
     }
 
     listen() {
@@ -37,3 +52,6 @@ class Server {
 
 }
 
+// EXPORTAMOS LA CLASE
+
+module.exports = Server
