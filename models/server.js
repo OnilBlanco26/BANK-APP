@@ -3,6 +3,7 @@ const cors = require('cors')
 const morgan = require('morgan')
 const { usersRouter } = require('../routes/user.routes')
 const { db } = require('../database/db')
+const { transferRouter } = require('../routes/transfer.routes')
 
 
 // 1. Creamos una clase
@@ -14,7 +15,7 @@ class Server {
 
         this.paths = {
             users: '/api/v1/users',
-            transfers: '/ap1/v1/transfers'
+            transfers: '/api/v1/transfers'
         }
 
         //LLAMAR EL METODO DE LA CONEXION A LA BASE DE DATOS
@@ -38,6 +39,7 @@ class Server {
     routes() {
         // UTLIZAMOS LA RUTA DE USUARIOS
         this.app.use(this.paths.users, usersRouter)
+        this.app.use(this.paths.transfers, transferRouter)
     }
 
     //CREAMOS EL METODO DE CONEXION PARA NUESTRA BASE DE DATOS
