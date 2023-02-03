@@ -1,8 +1,9 @@
+const catchAsync = require("../helpers/catchAsync");
 const Transfers = require("../models/transfers.model");
 const User = require("../models/users.model");
 
-const transferAmount = async (req, res) => {
-    console.log('estoy entrando en transfers')
+const transferAmount = catchAsync(async (req, res) => {
+
     const { amount, senderAccountNumber, receiverAccountNumber} = req.body
 
     const userReceive = await User.findOne({
@@ -68,7 +69,7 @@ const transferAmount = async (req, res) => {
         message: 'The transaction has been successfully completed',
         transfer
     })
-}
+})
 
 
 module.exports = {
