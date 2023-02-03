@@ -52,8 +52,8 @@ const transferAmount = catchAsync(async (req, res) => {
         })
     }
 
-    const newAmountUserTransfer = userTransfer.amount - amount 
-    const newAmountUserReceiver = userReceive.amount + amount 
+    const newAmountUserTransfer = parseInt(userTransfer.amount, 10) - parseInt(amount, 10); 
+    const newAmountUserReceiver =  parseInt(userReceive.amount, 10) + parseInt(amount, 10);
 
     await userTransfer.update({amount: newAmountUserTransfer})
     await userReceive.update({amount: newAmountUserReceiver})
