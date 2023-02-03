@@ -4,6 +4,8 @@ const morgan = require('morgan')
 const { usersRouter } = require('../routes/user.routes')
 const { db } = require('../database/db')
 const { transferRouter } = require('../routes/transfer.routes')
+const AppError = require('../helpers/appError')
+const globalErrorHandler = require('../controllers/error.controller')
 
 
 // 1. Creamos una clase
@@ -40,6 +42,12 @@ class Server {
         // UTLIZAMOS LA RUTA DE USUARIOS
         this.app.use(this.paths.users, usersRouter)
         this.app.use(this.paths.transfers, transferRouter)
+
+        this.app.all('*', (req, res, next) => {
+            return next(new AppError(`Can't FIND ${req.originalUrl} on this server!`, 404))
+        })
+
+        this.app.use(globalErrorHandler)
     }
 
     //CREAMOS EL METODO DE CONEXION PARA NUESTRA BASE DE DATOS
