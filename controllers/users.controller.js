@@ -1,9 +1,9 @@
+const catchAsync = require("../helpers/catchAsync");
 const Transfers = require("../models/transfers.model");
 const User = require("../models/users.model");
 
 
-
-const register = async (req, res) => {
+const register = catchAsync(async (req, res) => {
     const {name, password} = req.body
 
     const accountNumber = (Math.round(Math.random() * 100000) + 100000)
@@ -22,9 +22,9 @@ const register = async (req, res) => {
         user
     })
     
-}
+})
 
-const login = async (req, res) => {
+const login = catchAsync(async (req, res) => {
     const { password, accountNumber} = req.body
 
     const user = await User.findOne({
@@ -46,9 +46,9 @@ const login = async (req, res) => {
         status: 'success',
         message: `Welcome ${user.name.charAt(0).toUpperCase() + user.name.slice(1)}`
     })
-}
+})
 
-const getHistory = async (req, res) => {
+const getHistory = catchAsync(async (req, res) => {
     const {id} = req.params
     const getUser = await User.findOne({
         where: {
@@ -82,7 +82,7 @@ const getHistory = async (req, res) => {
         message: 'Transfers has found succesfully',
         transfers
     })
-}
+})
 
 
 module.exports = {
