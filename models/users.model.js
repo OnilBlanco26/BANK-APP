@@ -2,7 +2,7 @@ const {DataTypes} = require('sequelize')
 const { db } = require('../database/db')
 
 // 1.definir nuestra tabla para la base de datos
-const User = db.define('user', {
+const User = db.define('users', {
     id: {
         primaryKey: true,
         autoIncrement: true,
@@ -22,7 +22,7 @@ const User = db.define('user', {
         allowNull: false
     },
     amount: {
-        type: DataTypes.DECIMAL(10, 2),
+        type: DataTypes.DECIMAL(10, 0),
         allowNull: false
     },
     status: {
