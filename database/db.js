@@ -3,7 +3,6 @@
 // 1.Importamos sequelize
 const { Sequelize } = require('sequelize');
 
-
 // 2.Hacemos nuestra configuracion
 const db = new Sequelize({
   dialect: process.env.DB_DIALECT,
@@ -14,7 +13,6 @@ const db = new Sequelize({
   logging: false,
 });
 
-
 // 3.Exportamos nuestra db
 
-module.exports = { db }
+module.exports = { db };
